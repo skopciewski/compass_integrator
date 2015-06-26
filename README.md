@@ -2,6 +2,12 @@
 
 [![Gem Version](https://badge.fury.io/rb/compass_integrator.svg)](http://badge.fury.io/rb/compass_integrator)
 
+## Assumptions
+
+* joins the `compass` and its components into project dependencies
+* provides the tasks for the assets management
+* provides the default compass config
+
 ## Installation
 
 Add this line to your application's Gemfile:
