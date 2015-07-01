@@ -24,6 +24,16 @@ Or install it yourself as:
 
 ## Usage
 
+Add to project's Rakefile:
+```
+require 'compass_integrator'
+```
+
+and list available tasks:
+```
+rake -T
+```
+
 ## Versioning
 
 See [semver.org][semver]

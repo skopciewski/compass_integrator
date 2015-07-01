@@ -33,7 +33,7 @@ namespace :ci do
     current_config_path = File.join(current_configdir_path, 'compass.rb')
     unless File.exist?(current_config_path)
       StdoutOutputter::Outputter.new.write '*** Creating default compass configuration ***'
-      SystemExecutor::Executor.new.run "mkdir -p #{current_config_path}"
+      SystemExecutor::Executor.new.run "mkdir -p #{current_configdir_path}"
       SystemExecutor::Executor.new.run "cp #{default_config_path} #{current_config_path}"
     end
   end

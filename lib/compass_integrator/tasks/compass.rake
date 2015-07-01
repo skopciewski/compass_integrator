@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'exec_executor'
 require 'system_executor'
 require 'stdout_outputter'
 
@@ -37,7 +38,9 @@ namespace :ci do
   desc 'Run compass watch'
   task :watch do
     StdoutOutputter::Outputter.new.write '*** Watching for changes ***'
-    SystemExecutor::Executor.new.run 'compass watch'
+    ExecExecutor::Executor.new.run 'compass watch'
   end
 
+  task c: %w[compile]
+  task w: %w[watch]
 end
