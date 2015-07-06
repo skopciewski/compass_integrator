@@ -1,1 +1,1 @@
-require 'compass_integrator/tasks'
+require "compass_integrator/tasks"
