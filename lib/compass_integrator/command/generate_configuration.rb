@@ -17,28 +17,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/clean"
-require "compass_integrator/command/compile"
-require "compass_integrator/command/watch"
+require "compass_integrator/command_template"
+require "fileutils"
 
-command_args = { output: $stdout, executor: Kernel, config: $compass_integrator_config }
-
-namespace :ci do
-  desc "Remove compiled css"
-  task :clean do
-    CompassIntegrator::Command::Clean.new(command_args).run
+module CompassIntegrator
+  module Command
+    class GenerateConfiguration < CommandTemplate
+      def run
+        config_dir = File.dirname config_file_path
+        unless File.exist?(config_file_path)
+          @output.puts "*** Creating default compass configuration ***"
+          FileUtils.mkdir_p config_dir
+          FileUtils.cp default_config_file_path, config_file_path
+        end
+      end
+    end
   end
-
-  desc "Compile css"
-  task compile: %w(clean) do
-    CompassIntegrator::Command::Compile.new(command_args).run
-  end
-
-  desc "Run compass watch"
-  task :watch do
-    CompassIntegrator::Command::Watch.new(command_args).run
-  end
-
-  task c: %w(compile)
-  task w: %w(watch)
 end

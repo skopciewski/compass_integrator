@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# Copyright (C) 2015 Szymon Kopciewski
+# Copyright (C) 2015,2016 Szymon Kopciewski
 #
 # This file is part of CompassIntegrator.
 #
@@ -17,23 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "system_executor"
-require "stdout_outputter"
+require "compass_integrator/command/generate_configuration"
+
+command_args = { output: $stdout, executor: Kernel, config: $compass_integrator_config }
 
 namespace :ci do
   desc "Install default compass config"
   task :config do
-    default_config_path = File.join(
-      Gem.datadir("compass_integrator"),
-      "compass_default.rb"
-    )
-    current_path = Rake.application.original_dir
-    current_configdir_path = File.join(current_path, "config")
-    current_config_path = File.join(current_configdir_path, "compass.rb")
-    unless File.exist?(current_config_path)
-      StdoutOutputter::Outputter.new.write "*** Creating default compass configuration ***"
-      SystemExecutor::Executor.new.run "mkdir -p #{current_configdir_path}"
-      SystemExecutor::Executor.new.run "cp #{default_config_path} #{current_config_path}"
-    end
+    CompassIntegrator::Command::GenerateConfiguration.new(command_args).run
   end
 end

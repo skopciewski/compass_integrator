@@ -17,28 +17,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/clean"
-require "compass_integrator/command/compile"
-require "compass_integrator/command/watch"
+module CompassIntegrator
+  class CommandTemplate
+    def initialize(output:, executor:, config:)
+      @output = output
+      @executor = executor
+      @config = config
+    end
 
-command_args = { output: $stdout, executor: Kernel, config: $compass_integrator_config }
+    def run
+      raise NotImplementedError
+    end
 
-namespace :ci do
-  desc "Remove compiled css"
-  task :clean do
-    CompassIntegrator::Command::Clean.new(command_args).run
+    private
+
+    def config_file_path
+      File.join(
+        Rake.application.original_dir,
+        @config.fetch("project_ui_dir"),
+        @config.fetch("project_config_dir"),
+        @config.fetch("project_compass_config_file")
+      )
+    end
+
+    def default_config_file_path
+      File.join(
+        Gem.datadir("compass_integrator"),
+        "compass_default.rb"
+      )
+    end
   end
-
-  desc "Compile css"
-  task compile: %w(clean) do
-    CompassIntegrator::Command::Compile.new(command_args).run
-  end
-
-  desc "Run compass watch"
-  task :watch do
-    CompassIntegrator::Command::Watch.new(command_args).run
-  end
-
-  task c: %w(compile)
-  task w: %w(watch)
 end

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# Copyright (C) 2015 Szymon Kopciewski
+# Copyright (C) 2015,2016 Szymon Kopciewski
 #
 # This file is part of CompassIntegrator.
 #
