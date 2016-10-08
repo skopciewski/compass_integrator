@@ -17,13 +17,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/generate_configuration"
+require "compass_integrator/command_template"
 
-namespace :ci do
-  desc "Install default compass config"
-  task :config do
-    CompassIntegrator::Command::GenerateConfiguration.new(
-      config: CompassIntegrator::Tasks.config
-    ).run
+module CompassIntegrator
+  module Command
+    class Watch < CommandTemplate
+      def run
+        @output.puts "*** Watching for changes ***"
+        @executor.exec "compass watch -c #{config_file_path}"
+      end
+    end
   end
 end

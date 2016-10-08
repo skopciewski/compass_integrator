@@ -17,13 +17,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/generate_configuration"
+require "piko_model"
 
-namespace :ci do
-  desc "Install default compass config"
-  task :config do
-    CompassIntegrator::Command::GenerateConfiguration.new(
-      config: CompassIntegrator::Tasks.config
-    ).run
+module CompassIntegrator
+  class Config < PikoModel::Model
+    field "project_css_dir", default: "stylesheets"
+    field "project_javascripts_dir", default: "javascripts"
+    field "project_js_compressed_dir", default: "js"
+    field "project_images_dir", default: "images"
+    field "project_assets_verbose", default: false
+    field "project_cdn_url", default: nil
+    field "project_font_dir", default: "fonts"
+    field "project_assets_http_path", default: "/"
+    field "project_ui_dir", default: "."
+    field "project_public_dir", default: "public"
+    field "project_sass_dir", default: "sass"
+    field "project_config_dir", default: "config"
+    field "project_compass_config_file", default: "compass_config.rb"
   end
 end

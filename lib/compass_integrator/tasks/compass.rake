@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-# Copyright (C) 2015 Szymon Kopciewski
+# Copyright (C) 2015,2016 Szymon Kopciewski
 #
 # This file is part of CompassIntegrator.
 #
@@ -17,27 +17,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "exec_executor"
-require "system_executor"
-require "stdout_outputter"
+require "compass_integrator/command/clean"
+require "compass_integrator/command/compile"
+require "compass_integrator/command/watch"
 
 namespace :ci do
   desc "Remove compiled css"
   task :clean do
-    StdoutOutputter::Outputter.new.write "*** Remove CSS ***"
-    SystemExecutor::Executor.new.run "compass clean"
+    CompassIntegrator::Command::Clean.new(config: CompassIntegrator::Tasks.config).run
   end
 
   desc "Compile css"
   task compile: %w(clean) do
-    StdoutOutputter::Outputter.new.write "*** Compiling CSS ***"
-    SystemExecutor::Executor.new.run "compass compile"
+    CompassIntegrator::Command::Compile.new(config: CompassIntegrator::Tasks.config).run
   end
 
   desc "Run compass watch"
   task :watch do
-    StdoutOutputter::Outputter.new.write "*** Watching for changes ***"
-    ExecExecutor::Executor.new.run "compass watch"
+    CompassIntegrator::Command::Watch.new(config: CompassIntegrator::Tasks.config).run
   end
 
   task c: %w(compile)

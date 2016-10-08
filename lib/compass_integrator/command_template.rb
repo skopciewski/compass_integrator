@@ -17,13 +17,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/generate_configuration"
+module CompassIntegrator
+  class CommandTemplate
+    def initialize(config:, output: $stdout, executor: ::Kernel)
+      @config = config
+      @output = output
+      @executor = executor
+    end
 
-namespace :ci do
-  desc "Install default compass config"
-  task :config do
-    CompassIntegrator::Command::GenerateConfiguration.new(
-      config: CompassIntegrator::Tasks.config
-    ).run
+    def run
+      raise NotImplementedError
+    end
+
+    private
+
+    def config_file_path
+      File.join(
+        Rake.application.original_dir,
+        @config.fetch("project_ui_dir"),
+        @config.fetch("project_config_dir"),
+        @config.fetch("project_compass_config_file")
+      )
+    end
+
+    def default_config_file_path
+      File.join(
+        Gem.datadir("compass_integrator"),
+        "compass_default.rb"
+      )
+    end
   end
 end

@@ -17,13 +17,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "compass_integrator/command/generate_configuration"
+require "compass_integrator/command_template"
+require "fileutils"
 
-namespace :ci do
-  desc "Install default compass config"
-  task :config do
-    CompassIntegrator::Command::GenerateConfiguration.new(
-      config: CompassIntegrator::Tasks.config
-    ).run
+module CompassIntegrator
+  module Command
+    class GenerateConfiguration < CommandTemplate
+      def run
+        config_dir = File.dirname config_file_path
+        return if File.exist?(config_file_path)
+        @output.puts "*** Creating default compass configuration ***"
+        FileUtils.mkdir_p config_dir
+        FileUtils.cp default_config_file_path, config_file_path
+      end
+    end
   end
 end
