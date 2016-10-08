@@ -18,6 +18,6 @@ class CleanTest < Minitest::Test
 
   def test_run_comman_call_system
     CompassIntegrator::Command::Clean.new(@command_args).run
-    assert_match %r(^compass clean -c .*/config/compass_config.rb), @executor.system_calls.first
+    assert_match %r{^compass clean -c .*/config/compass_config.rb}, @executor.system_calls.first
   end
 end

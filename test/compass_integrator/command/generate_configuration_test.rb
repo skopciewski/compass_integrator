@@ -1,7 +1,7 @@
 require "test_helper"
 require "compass_integrator/command/generate_configuration"
 require "compass_integrator/config"
-require 'fileutils'
+require "fileutils"
 
 class GenerateConfigurationTest < Minitest::Test
   def setup
@@ -23,9 +23,9 @@ class GenerateConfigurationTest < Minitest::Test
 
   def test_run_commad_generate_file
     CompassIntegrator::Command::GenerateConfiguration.new(@command_args).run
-     config_path = @test_dir.join(
-       @config.fetch("project_config_dir"), @config.fetch("project_compass_config_file")
-     )
+    config_path = @test_dir.join(
+      @config.fetch("project_config_dir"), @config.fetch("project_compass_config_file")
+    )
     assert_equal true, File.exist?(config_path)
   end
 

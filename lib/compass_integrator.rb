@@ -19,3 +19,4 @@
 
 require "compass_integrator/version"
 require "compass_integrator/config"
+require "compass_integrator/tasks"

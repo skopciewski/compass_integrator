@@ -21,7 +21,7 @@ require "compass_integrator/command/clean"
 require "compass_integrator/command/compile"
 require "compass_integrator/command/watch"
 
-command_args = { output: $stdout, executor: Kernel, config: $compass_integrator_config }
+command_args = { output: $stdout, executor: Kernel, config: CompassIntegrator::Tasks.config }
 
 namespace :ci do
   desc "Remove compiled css"

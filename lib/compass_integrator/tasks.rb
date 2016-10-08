@@ -17,5 +17,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-tasks_path = File.join(File.dirname(__FILE__), "tasks")
-Dir["#{tasks_path}/*.rake"].each { |ext| load ext } if defined?(Rake)
+module CompassIntegrator
+  module Tasks
+    class << self
+      attr_reader :config
+    end
+
+    def self.load(config)
+      @config = config
+      tasks_path = File.join(File.dirname(__FILE__), "tasks")
+      Dir["#{tasks_path}/*.rake"].each { |ext| ::Kernel.load(ext, true) } if defined?(::Rake)
+    end
+  end
+end

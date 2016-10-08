@@ -18,6 +18,6 @@ class WatchTest < Minitest::Test
 
   def test_run_comman_call_system
     CompassIntegrator::Command::Watch.new(@command_args).run
-    assert_match %r(^compass watch -c .*/config/compass_config.rb), @executor.exec_calls.first
+    assert_match %r{^compass watch -c .*/config/compass_config.rb}, @executor.exec_calls.first
   end
 end

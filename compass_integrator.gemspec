@@ -3,7 +3,7 @@
 begin
   require "./lib/compass_integrator/version"
 rescue LoadError
-  module CompassIntegrator; VERSION = "0"; end
+  module CompassIntegrator; VERSION = "0".freeze; end
 end
 
 Gem::Specification.new do |spec|
