@@ -43,7 +43,7 @@ module CompassIntegrator
     def default_config_file_path
       File.join(
         Gem.datadir("compass_integrator"),
-        "compass_default.rb"
+        "compass_config.rb.default"
       )
     end
   end
