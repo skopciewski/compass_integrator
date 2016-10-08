@@ -21,9 +21,6 @@ Gem::Specification.new do |spec|
                        %w(Gemfile LICENSE README.md CHANGELOG.md)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
-  spec.add_runtime_dependency "exec_executor", "~> 1.0"
-  spec.add_runtime_dependency "system_executor", "~> 1.0"
-  spec.add_runtime_dependency "stdout_outputter", "~> 1.0"
   spec.add_runtime_dependency "piko_model", "~>1"
   spec.add_runtime_dependency "compass"
   spec.add_runtime_dependency "compass-rgbapng"

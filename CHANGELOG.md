@@ -1,3 +1,7 @@
+=== 3.0.2 (2016.10.08)
+
+* remove unused dependencies
+
 === 3.0.1 (2016.10.08)
 
 * rename default compass config file
