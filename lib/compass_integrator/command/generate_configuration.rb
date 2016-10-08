@@ -25,11 +25,10 @@ module CompassIntegrator
     class GenerateConfiguration < CommandTemplate
       def run
         config_dir = File.dirname config_file_path
-        unless File.exist?(config_file_path)
-          @output.puts "*** Creating default compass configuration ***"
-          FileUtils.mkdir_p config_dir
-          FileUtils.cp default_config_file_path, config_file_path
-        end
+        return if File.exist?(config_file_path)
+        @output.puts "*** Creating default compass configuration ***"
+        FileUtils.mkdir_p config_dir
+        FileUtils.cp default_config_file_path, config_file_path
       end
     end
   end
