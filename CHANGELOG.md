@@ -1,3 +1,7 @@
+=== 3.0.1 (2016.10.08)
+
+* rename default compass config file
+
 === 3.0.0 (2016.10.08)
 
 * use minitest instead of rspec
