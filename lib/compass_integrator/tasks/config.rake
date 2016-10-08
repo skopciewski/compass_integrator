@@ -19,11 +19,11 @@
 
 require "compass_integrator/command/generate_configuration"
 
-command_args = { output: $stdout, executor: Kernel, config: CompassIntegrator::Tasks.config }
-
 namespace :ci do
   desc "Install default compass config"
   task :config do
-    CompassIntegrator::Command::GenerateConfiguration.new(command_args).run
+    CompassIntegrator::Command::GenerateConfiguration.new(
+      config: CompassIntegrator::Tasks.config
+    ).run
   end
 end

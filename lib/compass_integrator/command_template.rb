@@ -19,10 +19,10 @@
 
 module CompassIntegrator
   class CommandTemplate
-    def initialize(output:, executor:, config:)
+    def initialize(config:, output: $stdout, executor: ::Kernel)
+      @config = config
       @output = output
       @executor = executor
-      @config = config
     end
 
     def run
